@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tiktok_flutter/constants.dart';
+import 'package:tiktok_flutter/views/screens/auth/signup_screen.dart';
 import 'package:tiktok_flutter/views/widgets/text_input_field.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -18,6 +19,14 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
     _emailController.dispose();
     _passwordController.dispose();
+  }
+
+  void navigateToSignup() {
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (context) => const SignupScreen(),
+      ),
+    );
   }
 
   @override
@@ -85,9 +94,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               child: InkWell(
-                onTap: () {
-                  print('login');
-                },
+                onTap: () => authController.loginUser(
+                  _emailController.text,
+                  _passwordController.text,
+                ),
                 child: const Center(
                   child: Text(
                     'Login',
@@ -115,9 +125,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 InkWell(
-                  onTap: () {
-                    print('navi register');
-                  },
+                  onTap: navigateToSignup,
                   child: Text(
                     'Register',
                     style: TextStyle(
