@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tiktok_flutter/constants.dart';
+import 'package:tiktok_flutter/views/screens/auth/login_screen.dart';
 import 'package:tiktok_flutter/views/widgets/text_input_field.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -22,9 +23,18 @@ class _LoginScreenState extends State<SignupScreen> {
     _passwordController.dispose();
   }
 
+  void navigateToLogin() {
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (context) => const LoginScreen(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
         alignment: Alignment.center,
         child: Column(
@@ -61,7 +71,7 @@ class _LoginScreenState extends State<SignupScreen> {
                   left: 80,
                   bottom: -10,
                   child: IconButton(
-                    onPressed: () {},
+                    onPressed: () => authController.pickImage(),
                     icon: const Icon(Icons.add_a_photo),
                   ),
                 ),
@@ -124,9 +134,12 @@ class _LoginScreenState extends State<SignupScreen> {
                 ),
               ),
               child: InkWell(
-                onTap: () {
-                  print('signup');
-                },
+                onTap: () => authController.registerUser(
+                  _usernameController.text,
+                  _emailController.text,
+                  _passwordController.text,
+                  authController.profilePhoto,
+                ),
                 child: const Center(
                   child: Text(
                     'Register',
@@ -154,9 +167,7 @@ class _LoginScreenState extends State<SignupScreen> {
                   ),
                 ),
                 InkWell(
-                  onTap: () {
-                    print('navi login');
-                  },
+                  onTap: navigateToLogin,
                   child: Text(
                     'Login',
                     style: TextStyle(
