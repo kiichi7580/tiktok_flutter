@@ -14,6 +14,7 @@ class AuthController extends GetxController {
   late Rx<File?> _pickedImage;
 
   File? get profilePhoto => _pickedImage.value;
+  User get user => _user.value!;
 
   @override
   void onReady() {
@@ -26,7 +27,7 @@ class AuthController extends GetxController {
   // ユーザーのログイン状態を管理する関数
   _setInitialScreen(User? user) {
     if (user == null) {
-      Get.offAll(() =>  LoginScreen());
+      Get.offAll(() => LoginScreen());
     } else {
       Get.offAll(() => const HomeScreen());
     }
